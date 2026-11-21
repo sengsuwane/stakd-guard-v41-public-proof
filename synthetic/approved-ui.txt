@@ -1,3 +1,3 @@
 SYNTHETIC PROOF ONLY
-Approved baseline: v1
-No STAKD source, credentials, or private governance material.
+Approved baseline: v2
+SYNTHETIC_REGRESSION_MARKER
