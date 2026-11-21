@@ -1,0 +1,23 @@
+name: Synthetic Regression Guard
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+jobs:
+  synthetic-regression:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify synthetic approved baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f synthetic/approved-ui.txt
+          grep -Fxq 'Approved baseline: v1' synthetic/approved-ui.txt
+          if grep -q 'SYNTHETIC_REGRESSION_MARKER' synthetic/approved-ui.txt; then
+            echo 'Synthetic regression detected' >&2
+            exit 1
+          fi
